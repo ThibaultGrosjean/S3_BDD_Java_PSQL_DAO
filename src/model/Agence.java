@@ -13,7 +13,7 @@ public class Agence extends Entity {
     public Agence(int id) {
         this(id, 0);
     }
-
+    
     public Agence(int id, int nbEmployes) {
         super();
         this.id = id;
@@ -43,11 +43,11 @@ public class Agence extends Entity {
         this.nbEmployes = nbEmployes;
     }
 
-    public Ville getNbHabitant() {
+    public Ville getVille() {
         return ville;
     }
 
-    public void setNbHabitant(Ville ville) {
+    public void setVille(Ville ville) {
         this.ville = ville;
     }
 }
