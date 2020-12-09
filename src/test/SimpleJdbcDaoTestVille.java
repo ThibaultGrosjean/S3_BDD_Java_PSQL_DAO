@@ -71,10 +71,11 @@ public class SimpleJdbcDaoTestVille {
         dao = new VilleDaoImpl(connection);
         testfindAllVilles();
 
-        //create
-        System.out.println("\n***** Création d'une ville : ");
         Ville ville = new Ville("Dijon");
         ville.setNbHabitant(656156);
+
+        //create
+        System.out.println("\n***** Création d'une ville : ");
         testCreateVille(ville);
 
         //find all
@@ -85,14 +86,17 @@ public class SimpleJdbcDaoTestVille {
         System.out.println("\n***** Ville 5 : ");
         testfindByIdVilles(5);
 
+
         //edit
         System.out.println("\n***** Modification d'une ville : ");
-        ville.setNom("Dijon++");
-        testEditVille(ville);
+        testEditVille(
+                new Ville(1,"Dunkerque",999999)
+        );
         testfindAllVilles();
 
         //delete
         System.out.println("\n***** Suppression d'une ville : ");
+        ville.setId(5);
         testDeleteVille(ville);
         testfindAllVilles();
     }

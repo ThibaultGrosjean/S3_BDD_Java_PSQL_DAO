@@ -86,12 +86,12 @@ public class SimpleJdbcDaoTestMarque {
 
         //edit
         System.out.println("\n***** Modification d'une marque : ");
-        marque.setNom("Wolsvagen das auto");
-        testEditMarque(marque);
+        testEditMarque(new Marque(1,"VROUUUM"));
         testfindAllMarques();
 
         //delete
         System.out.println("\n***** Suppression d'une marque : ");
+        marque.setId(6);
         testDeleteMarque(marque);
         testfindAllMarques();
     }
