@@ -90,6 +90,7 @@ public class SimpleJdbcDaoTestAgence {
 
         //edit
         System.out.println("\n***** Modification d'une agence : ");
+        agence.setNbEmployes(0101010);
         testEditAgence(agence);
         testfindAllAgences();
 
