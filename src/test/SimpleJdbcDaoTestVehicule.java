@@ -125,7 +125,6 @@ public class SimpleJdbcDaoTestVehicule {
         System.out.println("\n***** Vehicule 5 : ");
         testfindByIdVehicules(5);
 
-
         //edit
         System.out.println("\n***** Modification d'une vehicule : ");
         vehicule.setPrixParJourDeLocation(9999999);
