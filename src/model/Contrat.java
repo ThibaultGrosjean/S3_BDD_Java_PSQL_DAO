@@ -95,4 +95,19 @@ public class Contrat extends Entity {
     public void setAgence(Agence agence) {
         this.agence = agence;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(id)
+                .append(" | ").append(dateDeRetrait)
+                .append(" | ").append(dateDeRetour)
+                .append(" | ").append(kmRetrait)
+                .append(" | ").append(kmRetour)
+                .append(" | ").append(client)
+                .append(" | ").append(vehicule)
+                .append(" | ").append(agence)
+        ;
+        return stringBuilder.toString();
+    }
 }

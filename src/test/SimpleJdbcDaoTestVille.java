@@ -21,7 +21,7 @@ public class SimpleJdbcDaoTestVille {
             Collection<Entity> villes = dao.findAll();
             for (Entity entity : villes) {
                 Ville ville = (Ville) entity;
-                System.out.println(ville.getId() + " | " + ville.getNom()+ " | " + ville.getNbHabitant());
+                System.out.println(ville);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -33,7 +33,7 @@ public class SimpleJdbcDaoTestVille {
 
         try {
             Ville ville = (Ville) dao.findById(id);
-            System.out.println(ville.getId() + " | " + ville.getNom() + " | " + ville.getNbHabitant());
+            System.out.println(ville);
         } catch (DaoException e) {
             e.printStackTrace();
         }

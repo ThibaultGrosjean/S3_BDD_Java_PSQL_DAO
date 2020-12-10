@@ -14,29 +14,6 @@ public class SimpleJdbcDaoTestVehicule {
     private Connection connection;
     private Dao dao;
 
-    private void printVehicule(Vehicule vehicule) {
-        System.out.println(vehicule.getImmatriculation() + " | "
-                + vehicule.getDateMiseEnCirculation() + "|"
-                + " | " + vehicule.getEtat()
-                + " | " + vehicule.getNbKilometres()
-                + " | " + vehicule.getPrixParJourDeLocation()
-                + " | "+ vehicule.getMarque().getId()
-                + " | "+ vehicule.getMarque().getNom()
-                + " | "+ vehicule.getModele().getId()
-                + " | "+ vehicule.getModele().getDenomination()
-                + " | "+ vehicule.getModele().getPuissanceFiscale()
-                + " | "+ vehicule.getCategorie().getId()
-                + " | "+ vehicule.getCategorie().getLibelle()
-                + " | "+ vehicule.getType().getId()
-                + " | "+ vehicule.getType().getLibelle()
-                + " | "+ vehicule.getAgence().getId()
-                + " | "+ vehicule.getAgence().getNbEmployes()
-                + " | "+ vehicule.getAgence().getVille().getId()
-                + " | "+ vehicule.getAgence().getVille().getNom()
-                + " | "+ vehicule.getAgence().getVille().getNbHabitant()
-        );
-    }
-
     public void testfindAllVehicules() {
         Dao dao = new VehiculeDaoImpl(connection);
 
@@ -44,7 +21,7 @@ public class SimpleJdbcDaoTestVehicule {
             Collection<Entity> vehicules = dao.findAll();
             for (Entity entity : vehicules) {
                 Vehicule vehicule = (Vehicule) entity;
-                printVehicule(vehicule);
+                System.out.println(vehicule);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -56,7 +33,7 @@ public class SimpleJdbcDaoTestVehicule {
 
         try {
             Vehicule vehicule = (Vehicule) dao.findById(id);
-            printVehicule(vehicule);
+            System.out.println(vehicule);
         } catch (DaoException e) {
             e.printStackTrace();
         }

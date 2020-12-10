@@ -54,4 +54,11 @@ public class Ville extends Entity {
     public void setNbHabitant(int nbHabitant) {
         this.nbHabitant = nbHabitant;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(id).append(" | ").append(nom).append(" | ").append(nbHabitant);
+        return stringBuilder.toString();
+    }
 }

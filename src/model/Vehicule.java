@@ -128,4 +128,22 @@ public class Vehicule extends Entity {
     public void setAgence(Agence agence) {
         this.agence = agence;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(immatriculation)
+                .append(" | ").append(dateMiseEnCirculation)
+                .append(" | ").append(etat)
+                .append(" | ").append(nbKilometres)
+                .append(" | ").append(prixParJourDeLocation)
+                .append(" | ").append(marque)
+                .append(" | ").append(modele)
+                .append(" | ").append(categorie)
+                .append(" | ").append(type)
+                .append(" | ").append(agence)
+        ;
+        return stringBuilder.toString();
+    }
+
 }

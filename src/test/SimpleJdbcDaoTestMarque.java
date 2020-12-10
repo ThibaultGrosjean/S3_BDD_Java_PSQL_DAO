@@ -21,7 +21,7 @@ public class SimpleJdbcDaoTestMarque {
             Collection<Entity> marques = dao.findAll();
             for (Entity entity : marques) {
                 Marque marque = (Marque) entity;
-                System.out.println(marque.getId() + " | " + marque.getNom());
+                System.out.println(marque);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -33,7 +33,7 @@ public class SimpleJdbcDaoTestMarque {
 
         try {
             Marque marque = (Marque) dao.findById(id);
-            System.out.println(marque.getId() + " | " + marque.getNom());
+            System.out.println(marque);
         } catch (DaoException e) {
             e.printStackTrace();
         }

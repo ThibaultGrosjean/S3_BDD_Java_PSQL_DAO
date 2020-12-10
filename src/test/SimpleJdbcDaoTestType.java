@@ -21,7 +21,7 @@ public class SimpleJdbcDaoTestType {
             Collection<Entity> types = dao.findAll();
             for (Entity entity : types) {
                 Type type = (Type) entity;
-                System.out.println(type.getId() + " | " + type.getLibelle());
+                System.out.println(type);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -33,7 +33,7 @@ public class SimpleJdbcDaoTestType {
 
         try {
             Type type = (Type) dao.findById(id);
-            System.out.println(type.getId() + " | " + type.getLibelle());
+            System.out.println(type);
         } catch (DaoException e) {
             e.printStackTrace();
         }

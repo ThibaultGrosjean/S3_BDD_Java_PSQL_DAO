@@ -50,4 +50,11 @@ public class Facture extends Entity {
     public void setContrat(Contrat contrat) {
         this.contrat = contrat;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(id).append(" | ").append(montant).append(" | ").append(contrat);
+        return stringBuilder.toString();
+    }
 }

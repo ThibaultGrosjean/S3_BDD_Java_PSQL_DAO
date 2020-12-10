@@ -21,7 +21,7 @@ public class SimpleJdbcDaoTestModele {
             Collection<Entity> modeles = dao.findAll();
             for (Entity entity : modeles) {
                 Modele modele = (Modele) entity;
-                System.out.println(modele.getId() + " | " + modele.getDenomination() + " | " + modele.getPuissanceFiscale());
+                System.out.println(modele);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -33,7 +33,7 @@ public class SimpleJdbcDaoTestModele {
 
         try {
             Modele modele = (Modele) dao.findById(id);
-            System.out.println(modele.getId() + " | " + modele.getDenomination() + " | " + modele.getPuissanceFiscale());
+            System.out.println(modele);
         } catch (DaoException e) {
             e.printStackTrace();
         }

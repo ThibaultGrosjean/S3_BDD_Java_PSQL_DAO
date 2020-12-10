@@ -21,7 +21,7 @@ public class SimpleJdbcDaoTestCategorie {
             Collection<Entity> categories = dao.findAll();
             for (Entity entity : categories) {
                 Categorie categorie = (Categorie) entity;
-                System.out.println(categorie.getId() + " | " + categorie.getLibelle());
+                System.out.println(categorie);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -33,7 +33,7 @@ public class SimpleJdbcDaoTestCategorie {
 
         try {
             Categorie categorie = (Categorie) dao.findById(id);
-            System.out.println(categorie.getId() + " | " + categorie.getLibelle());
+            System.out.println(categorie);
         } catch (DaoException e) {
             e.printStackTrace();
         }

@@ -22,7 +22,7 @@ public class SimpleJdbcDaoTestClient {
             Collection<Entity> clients = dao.findAll();
             for (Entity entity : clients) {
                 Client client = (Client) entity;
-                System.out.println(client.getId() + " | " + client.getNom() + "|" + " | " + client.getAdresse() + " | " + client.getCodePostale() + client.getVille().getId() + "|"+ client.getVille().getNom() + "|"+ client.getVille().getNbHabitant() + "|");
+                System.out.println(client);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class SimpleJdbcDaoTestClient {
 
         try {
             Client client = (Client) dao.findById(id);
-            System.out.println(client.getId() + " | " + client.getNom() + "|" + " | " + client.getAdresse() + " | " + client.getCodePostale() + client.getVille().getId() + "|"+ client.getVille().getNom() + "|"+ client.getVille().getNbHabitant() + "|");
+            System.out.println(client);
         } catch (DaoException e) {
             e.printStackTrace();
         }

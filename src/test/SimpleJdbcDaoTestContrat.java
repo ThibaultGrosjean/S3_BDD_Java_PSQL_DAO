@@ -14,45 +14,6 @@ public class SimpleJdbcDaoTestContrat {
     private Connection connection;
     private Dao dao;
 
-    private void printContrat(Contrat contrat) {
-        System.out.println(contrat.getId() + " | "
-                + contrat.getDateDeRetrait() + "|"
-                + " | " + contrat.getDateDeRetour()
-                + " | " + contrat.getKmRetrait()
-                + " | " + contrat.getKmRetour()
-                + " | " + contrat.getClient().getId()
-                + " | " + contrat.getClient().getNom()
-                + " | " + contrat.getClient().getAdresse()
-                + " | " + contrat.getClient().getCodePostale()
-                + " | " + contrat.getClient().getVille().getId()
-                + " | " + contrat.getClient().getVille().getNom()
-                + " | " + contrat.getClient().getVille().getNbHabitant()
-                + " | " + contrat.getVehicule().getImmatriculation() + " | "
-                + " | " + contrat.getVehicule().getDateMiseEnCirculation() + "|"
-                + " | " + contrat.getVehicule().getEtat()
-                + " | " + contrat.getVehicule().getNbKilometres()
-                + " | " + contrat.getVehicule().getPrixParJourDeLocation()
-                + " | " + contrat.getVehicule().getMarque().getId()
-                + " | " + contrat.getVehicule().getMarque().getNom()
-                + " | " + contrat.getVehicule().getModele().getId()
-                + " | " + contrat.getVehicule().getModele().getDenomination()
-                + " | " + contrat.getVehicule().getModele().getPuissanceFiscale()
-                + " | " + contrat.getVehicule().getCategorie().getId()
-                + " | " + contrat.getVehicule().getCategorie().getLibelle()
-                + " | " + contrat.getVehicule().getType().getId()
-                + " | " + contrat.getVehicule().getType().getLibelle()
-                + " | " + contrat.getVehicule().getAgence().getId()
-                + " | " + contrat.getVehicule().getAgence().getNbEmployes()
-                + " | " + contrat.getVehicule().getAgence().getVille().getId()
-                + " | " + contrat.getVehicule().getAgence().getVille().getNom()
-                + " | " + contrat.getVehicule().getAgence().getVille().getNbHabitant()
-                + " | " + contrat.getAgence().getId()
-                + " | " + contrat.getAgence().getNbEmployes()
-                + " | " + contrat.getAgence().getVille().getId()
-                + " | " + contrat.getAgence().getVille().getNom()
-                + " | " + contrat.getAgence().getVille().getNbHabitant()
-        );
-    }
 
     public void testfindAllContrats() {
         Dao dao = new ContratDaoImpl(connection);
@@ -61,7 +22,7 @@ public class SimpleJdbcDaoTestContrat {
             Collection<Entity> contrats = dao.findAll();
             for (Entity entity : contrats) {
                 Contrat contrat = (Contrat) entity;
-                printContrat(contrat);
+                System.out.println(contrat);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -73,7 +34,7 @@ public class SimpleJdbcDaoTestContrat {
 
         try {
             Contrat contrat = (Contrat) dao.findById(id);
-            printContrat(contrat);
+            System.out.println(contrat);
         } catch (DaoException e) {
             e.printStackTrace();
         }

@@ -88,4 +88,11 @@ public class Client extends Entity {
     public void setVille(Ville ville) {
         this.ville = ville;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(id).append(" | ").append(nom).append(" | ").append(adresse).append(" | ").append(codePostale).append(" | ").append(ville);
+        return stringBuilder.toString();
+    }
 }

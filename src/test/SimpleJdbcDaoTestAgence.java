@@ -22,7 +22,7 @@ public class SimpleJdbcDaoTestAgence {
             Collection<Entity> agences = dao.findAll();
             for (Entity entity : agences) {
                 Agence agence = (Agence) entity;
-                System.out.println(agence.getId() + " | " + agence.getNbEmployes() + "|" + agence.getVille().getId() + "|"+ agence.getVille().getNom() + "|"+ agence.getVille().getNbHabitant() + "|");
+                System.out.println(agence);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class SimpleJdbcDaoTestAgence {
 
         try {
             Agence agence = (Agence) dao.findById(id);
-            System.out.println(agence.getId() + " | " + agence.getNbEmployes() + "|" + agence.getVille().getId() + "|"+ agence.getVille().getNom() + "|"+ agence.getVille().getNbHabitant() + "|");
+            System.out.println(agence);
         } catch (DaoException e) {
             e.printStackTrace();
         }

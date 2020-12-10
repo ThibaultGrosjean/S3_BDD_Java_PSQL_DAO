@@ -50,4 +50,11 @@ public class Agence extends Entity {
     public void setVille(Ville ville) {
         this.ville = ville;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(id).append(" | ").append(nbEmployes).append(" | ").append(ville);
+        return stringBuilder.toString();
+    }
 }

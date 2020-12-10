@@ -23,10 +23,7 @@ public class SimpleJdbcDaoTestFacture {
             Collection<Entity> factures = dao.findAll();
             for (Entity entity : factures) {
                 Facture facture = (Facture) entity;
-                System.out.println(facture.getId()
-                        + " | " + facture.getMontant()
-                        + " | " + facture.getContrat().getId()
-                        + " | " );
+                System.out.println(facture);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -38,10 +35,8 @@ public class SimpleJdbcDaoTestFacture {
 
         try {
             Facture facture = (Facture) dao.findById(id);
-            System.out.println(facture.getId()
-                    + " | " + facture.getMontant()
-                    + " | " + facture.getContrat().getId()
-                    + " | " );        } catch (DaoException e) {
+            System.out.println(facture);
+        } catch (DaoException e) {
             e.printStackTrace();
         }
     }

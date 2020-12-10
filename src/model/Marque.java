@@ -38,4 +38,11 @@ public class Marque extends Entity {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(id).append(" | ").append(nom);
+        return stringBuilder.toString();
+    }
 }

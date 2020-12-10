@@ -38,4 +38,11 @@ public class Type extends Entity {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(id).append(" | ").append(libelle);
+        return stringBuilder.toString();
+    }
 }

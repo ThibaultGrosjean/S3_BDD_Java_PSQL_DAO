@@ -54,4 +54,11 @@ public class Modele extends Entity {
     public void setPuissanceFiscale(int puissanceFiscale) {
         this.puissanceFiscale = puissanceFiscale;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(id).append(" | ").append(denomination).append(" | ").append(puissanceFiscale);
+        return stringBuilder.toString();
+    }
 }
