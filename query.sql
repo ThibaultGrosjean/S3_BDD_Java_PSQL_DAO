@@ -99,14 +99,6 @@ FROM MARQUE AS m
 GROUP BY m.idMarque ;
 
 /* 8 */
-select t.libelleType ,  SUM(f.montant) as ChiffreAffaire
-from FACTURE f
-         join CONTRAT C on C.idContrat = f.idContrat
-         join VEHICULE V on C.immatriculation = V.immatriculation
-         join type t on V.idType = t.idtype
-group by t.libelleType;
-
-/* 9 */
 
 select c2.libelleCategorie ,  SUM(f.montant) as ChiffreAffaire
 from FACTURE f
@@ -114,6 +106,14 @@ from FACTURE f
          join VEHICULE V on C.immatriculation = V.immatriculation
          join categorie c2 on v.idCategorie = c2.idcategorie
 group by c2.libelleCategorie;
+
+/* 9 */
+select t.libelleType ,  SUM(f.montant) as ChiffreAffaire
+from FACTURE f
+         join CONTRAT C on C.idContrat = f.idContrat
+         join VEHICULE V on C.immatriculation = V.immatriculation
+         join type t on V.idType = t.idtype
+group by t.libelleType;
 
 /* 10 */
 
@@ -124,9 +124,10 @@ WHERE EXTRACT(YEAR FROM dateMiseEnCirculation) < EXTRACT(YEAR FROM NOW()) - 2
 
 /* 11 */
 
-select a.idAgence ,SUM(f.montant) as ChiffreAffaire
-from AGENCE a
-         join CONTRAT C on a.idAgence = C.idAgenceDeRetour
-         join FACTURE f on C.idContrat = f.idcontrat
-where EXTRACT(YEAR FROM dateDeRetour) = '2020'
-group by a.idAgence;
+SELECT a.idagence ,SUM(f.montant) AS ChiffreAffaire
+FROM AGENCE a
+         JOIN CONTRAT C ON a.idAgence = C.idAgenceDeRetour
+         JOIN FACTURE f ON C.idContrat = f.idcontrat
+         JOIN VILLE AS v ON a.idville = v.idville
+WHERE EXTRACT(YEAR FROM dateDeRetour) = '2020'
+GROUP BY a.idagence;
