@@ -3,8 +3,10 @@ package test;
 import dao.Dao;
 import dao.jdbc.AgenceDaoImpl;
 import dao.exception.DaoException;
+import dao.jdbc.VehiculeDaoImpl;
 import model.Entity;
 import model.Agence;
+import model.Vehicule;
 import model.Ville;
 import sql.PostgresConnection;
 
@@ -29,9 +31,46 @@ public class SimpleJdbcDaoTestAgence {
         }
     }
 
+    public void testChiffreAffaire(Agence agence, int mois, int annee) {
+        AgenceDaoImpl dao = new AgenceDaoImpl(connection);
+
+        try {
+            int chiffreAffaire = dao.findChiffreAffaire(agence.getId(), mois, annee);
+            System.out.println("Chiffre d'affaire de "+ agence.getVille().getNom() +" : " + chiffreAffaire);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testNbVehiculeByAnneeAndKm(int nbAnnee, int nbKm) {
+        AgenceDaoImpl dao = new AgenceDaoImpl(connection);
+
+        try {
+            Collection<Entity> agences = dao.findNbVehicule(nbAnnee, nbKm);
+            for (Entity entity : agences) {
+                Agence agence = (Agence) entity;
+                System.out.println(agence.getVille().getNom() +" | " +agence.getNbVehicule());
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+    public void testFindChiffreAffaireAnnee(int nbAnnee) {
+        AgenceDaoImpl dao = new AgenceDaoImpl(connection);
+
+        try {
+            Collection<Entity> agences = dao.findChiffreAffaireAnnee(nbAnnee);
+            for (Entity entity : agences) {
+                Agence agence = (Agence) entity;
+                System.out.println(agence.getVille().getNom() +" | " +agence.getChiffreAffaire());
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void testfindByIdAgences(int id) {
         Dao dao = new AgenceDaoImpl(connection);
-
         try {
             Agence agence = (Agence) dao.findById(id);
             System.out.println(agence);
@@ -64,7 +103,17 @@ public class SimpleJdbcDaoTestAgence {
         } catch (DaoException e) {
             e.printStackTrace();
         }
+    }
 
+    public Agence getAgencesById(int id) {
+        Dao dao = new AgenceDaoImpl(connection);
+        Agence agence = new Agence();
+        try {
+            agence = (Agence) dao.findById(id);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+        return agence;
     }
 
     public void test() {
@@ -99,6 +148,20 @@ public class SimpleJdbcDaoTestAgence {
         agence.setId(5);
         testDeleteAgence(agence);
         testfindAllAgences();
+
+        //5.
+        System.out.println("\n***** Chiffre d'affaire de l'agence de lyon pour janvier 2020: ");
+        testChiffreAffaire(getAgencesById(2), 1, 2020);
+
+        //10.
+        int nbAnnee = 2;
+        int nbKm = 150000;
+        System.out.println("\n***** Le nombre de véhicule(s) de plus de "+ nbAnnee +" ans et de plus de "+  nbKm +" km pour chacune des agences : ");
+        testNbVehiculeByAnneeAndKm(nbAnnee, nbKm);
+
+        //11.
+        System.out.println("\n***** Le chiffre d’affaire pour une année donnée pour chacune des agences ");
+        testFindChiffreAffaireAnnee(2020);
     }
 
 

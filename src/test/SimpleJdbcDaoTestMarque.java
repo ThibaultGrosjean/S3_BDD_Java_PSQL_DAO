@@ -2,7 +2,9 @@ package test;
 
 import dao.Dao;
 import dao.exception.DaoException;
+import dao.jdbc.AgenceDaoImpl;
 import dao.jdbc.MarqueDaoImpl;
+import model.Agence;
 import model.Entity;
 import model.Marque;
 import sql.PostgresConnection;
@@ -22,6 +24,20 @@ public class SimpleJdbcDaoTestMarque {
             for (Entity entity : marques) {
                 Marque marque = (Marque) entity;
                 System.out.println(marque);
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testNbVehiculeMarque() {
+        MarqueDaoImpl dao = new MarqueDaoImpl(connection);
+
+        try {
+            Collection<Entity> marques = dao.findNbVehiculeMarque();
+            for (Entity entity : marques) {
+                Marque marque = (Marque) entity;
+                System.out.println(marque.getNom() + " | " + marque.getNbVehicule());
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -94,6 +110,10 @@ public class SimpleJdbcDaoTestMarque {
         marque.setId(6);
         testDeleteMarque(marque);
         testfindAllMarques();
+
+        // 6.
+        System.out.println("\n***** Le nombre de véhicules pour chaque marque : ");
+        testNbVehiculeMarque();
     }
 
 

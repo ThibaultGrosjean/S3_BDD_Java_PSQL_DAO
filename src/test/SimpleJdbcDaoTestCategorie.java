@@ -28,6 +28,20 @@ public class SimpleJdbcDaoTestCategorie {
         }
     }
 
+    public void testfindChiffreAffaireCategories() {
+        CategorieDaoImpl dao = new CategorieDaoImpl(connection);
+
+        try {
+            Collection<Entity> categories = dao.findChiffreAffaireCategorie();
+            for (Entity entity : categories) {
+                Categorie categorie = (Categorie) entity;
+                System.out.println(categorie.getId() + " | " + categorie.getLibelle() + " | " + categorie.getChiffreAffaire());
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void testfindByIdCategories(int id) {
         Dao dao = new CategorieDaoImpl(connection);
 
@@ -98,6 +112,10 @@ public class SimpleJdbcDaoTestCategorie {
         categorie.setId(5);
         testDeleteCategorie(categorie);
         testfindAllCategories();
+
+        // 8.
+        System.out.println("\n***** Le chiffre d’affaire par catégorie : ");
+        testfindChiffreAffaireCategories();
     }
 
 

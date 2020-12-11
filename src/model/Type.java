@@ -4,6 +4,7 @@ public class Type extends Entity {
 
     private int id;
     private String libelle;
+    private int chiffreAffaire;
 
     public Type() {
         this(0);
@@ -33,6 +34,14 @@ public class Type extends Entity {
 
     public String getLibelle() {
         return libelle;
+    }
+
+    public int getChiffreAffaire() {
+        return chiffreAffaire;
+    }
+
+    public void setChiffreAffaire(int chiffreAffaire) {
+        this.chiffreAffaire = chiffreAffaire;
     }
 
     public void setLibelle(String libelle) {

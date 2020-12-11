@@ -50,6 +50,33 @@ public class TypeDaoImpl extends JdbcDao {
         return type;
     }
 
+    public Collection<Entity> findChiffreAffaireType() throws DaoException {
+        Collection<Entity> types = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT t.idType, t.libelleType ,  SUM(f.montant) AS ChiffreAffaire " +
+                        "FROM FACTURE f " +
+                        "JOIN CONTRAT C ON C.idContrat = f.idContrat " +
+                        "JOIN VEHICULE V ON C.immatriculation = V.immatriculation " +
+                        "JOIN type t ON V.idType = t.idtype " +
+                        "GROUP BY t.idType,t.libelleType;");
+
+            while (resultSet.next()) {
+                Type type = new Type();
+                type.setId(resultSet.getInt("idType"));
+                type.setLibelle(resultSet.getString("libelletype"));
+                type.setChiffreAffaire(resultSet.getInt("ChiffreAffaire"));
+                types.add(type);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+
+        return types;
+    }
+
     @Override
     public void create(Entity entity) throws DaoException {
         Type type = (Type) entity;

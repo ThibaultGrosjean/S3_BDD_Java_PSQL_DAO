@@ -2,6 +2,7 @@ package dao.jdbc;
 import dao.exception.DaoException;
 import model.Entity;
 import model.Categorie;
+import model.Marque;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -48,6 +49,34 @@ public class CategorieDaoImpl extends JdbcDao {
             throw new DaoException(e);
         }
         return categorie;
+    }
+
+    public Collection<Entity> findChiffreAffaireCategorie() throws DaoException {
+        Collection<Entity> categories = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+            "SELECT c2.idcategorie, c2.libelleCategorie ,  SUM(f.montant) AS ChiffreAffaire " +
+                "FROM FACTURE f " +
+                "JOIN CONTRAT C " +
+                "ON C.idContrat = f.idContrat " +
+                "JOIN VEHICULE V ON C.immatriculation = V.immatriculation " +
+                "JOIN categorie c2 ON v.idCategorie = c2.idcategorie " +
+                "GROUP BY c2.idcategorie, c2.libelleCategorie;");
+
+            while (resultSet.next()) {
+                Categorie categorie = new Categorie();
+                categorie.setId(resultSet.getInt("idcategorie"));
+                categorie.setLibelle(resultSet.getString("libelleCategorie"));
+                categorie.setChiffreAffaire(resultSet.getInt("ChiffreAffaire"));
+                categories.add(categorie);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+
+        return categories;
     }
 
     @Override

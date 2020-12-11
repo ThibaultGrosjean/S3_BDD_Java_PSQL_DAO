@@ -1,6 +1,7 @@
 package test;
 
 import dao.Dao;
+import dao.jdbc.AgenceDaoImpl;
 import dao.jdbc.VehiculeDaoImpl;
 import dao.exception.DaoException;
 import model.*;

@@ -50,6 +50,29 @@ public class MarqueDaoImpl extends JdbcDao {
         return marque;
     }
 
+    public Collection<Entity> findNbVehiculeMarque() throws DaoException {
+        Collection<model.Entity> marques = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+                     "SELECT m.nomMarque, COUNT(v.immatriculation) AS nbVehiculeParMarque " +
+                        "FROM MARQUE AS m " +
+                        "JOIN VEHICULE AS v ON m.idMarque = v.idMarque " +
+                        "GROUP BY m.idMarque ;");
+
+            while (resultSet.next()) {
+                Marque marque = new Marque();
+                marque.setNom(resultSet.getString("nommarque"));
+                marque.setNbVehicule(resultSet.getInt("nbVehiculeParMarque"));
+                marques.add(marque);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return marques;
+    }
+
     @Override
     public void create(Entity entity) throws DaoException {
         Marque marque = (Marque) entity;

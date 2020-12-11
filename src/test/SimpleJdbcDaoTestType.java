@@ -39,6 +39,20 @@ public class SimpleJdbcDaoTestType {
         }
     }
 
+    public void testChiffreAffaireTypes() {
+        TypeDaoImpl dao = new TypeDaoImpl(connection);
+
+        try {
+            Collection<Entity> types = dao.findChiffreAffaireType();
+            for (Entity entity : types) {
+                Type type = (Type) entity;
+                System.out.println(type.getId() + " | " + type.getLibelle() + " | " + type.getChiffreAffaire());
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void testCreateType(Type type) {
         try {
             dao.create(type);
@@ -98,6 +112,10 @@ public class SimpleJdbcDaoTestType {
         type.setId(5);
         testDeleteType(type);
         testfindAllTypes();
+
+        // 9.
+        System.out.println("\n***** Le chiffre d’affaire par type : ");
+        testChiffreAffaireTypes();
     }
 
 

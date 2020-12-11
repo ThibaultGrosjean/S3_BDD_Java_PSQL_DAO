@@ -2,6 +2,7 @@ package dao.jdbc;
 import dao.exception.DaoException;
 import model.Entity;
 import model.Agence;
+import model.Vehicule;
 import model.Ville;
 
 import java.sql.*;
@@ -54,6 +55,84 @@ public class AgenceDaoImpl extends JdbcDao {
             throw new DaoException(e);
         }
         return agence;
+    }
+
+    public int findChiffreAffaire(int idAgence, int mois, int annee) throws DaoException {
+        int chiffreAffaire = 0;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+             "SELECT SUM(f.montant) AS ChiffreAffaire " +
+                "FROM AGENCE AS a " +
+                "JOIN CONTRAT C ON a.idAgence = C.idAgenceDeRetour " +
+                "JOIN FACTURE f ON C.idContrat = f.idcontrat " +
+                "WHERE c.idAgenceDeRetour = "+ idAgence +
+                " AND EXTRACT(MONTH FROM dateDeRetour) = "+ mois +" AND EXTRACT(YEAR FROM dateDeRetour) = "+ annee +";");
+
+            while (resultSet.next()) {
+                chiffreAffaire = resultSet.getInt("chiffreaffaire");
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return chiffreAffaire;
+    }
+
+    public Collection<Entity> findChiffreAffaireAnnee(int annee) throws DaoException {
+        Collection<Entity> agences = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+            "SELECT v.nomville, v.idVille, a.idAgence ,SUM(f.montant) AS ChiffreAffaire " +
+                "FROM AGENCE a " +
+                "JOIN CONTRAT C ON a.idAgence = C.idAgenceDeRetour " +
+                "JOIN FACTURE f ON C.idContrat = f.idcontrat " +
+                "JOIN VILLE AS v ON a.idville = v.idville " +
+                "WHERE EXTRACT(YEAR FROM dateDeRetour) = " + annee +
+                " GROUP BY a.idAgence, v.idVille, v.nomville;");
+
+            while (resultSet.next()) {
+                Agence agence = new Agence();
+                agence.setId(resultSet.getInt("idagence"));
+                agence.setVille((Ville) villeDao.findById(resultSet.getInt("idville")));
+                agence.setChiffreAffaire(resultSet.getInt("ChiffreAffaire"));
+                agences.add(agence);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+
+        return agences;
+    }
+
+    public Collection<Entity> findNbVehicule(int nbAnnee, int nbKm) throws DaoException {
+        Collection<Entity> agences = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+            "SELECT vi.idville,COUNT(v.idagence) AS nbVehicule "+
+                "FROM VEHICULE AS v "+
+                "JOIN AGENCE AS a "+
+                "ON v.idagence = a.idagence "+
+                "JOIN VILLE AS vi "+
+                "ON a.idville = vi.idville "+
+                "WHERE EXTRACT(YEAR FROM v.dateMiseEnCirculation) < EXTRACT(YEAR FROM NOW()) - "+ nbAnnee +
+                " AND v.nbKilometres > "+ nbKm +
+                " GROUP BY v.idagence, vi.idville;");
+
+            while (resultSet.next()) {
+                Agence agence = new Agence();
+                agence.setVille((Ville) villeDao.findById(resultSet.getInt("idville")));
+                agence.setNbVehicule(resultSet.getInt("nbVehicule"));
+                agences.add(agence);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+
+        return agences;
     }
 
     @Override
@@ -121,8 +200,6 @@ public class AgenceDaoImpl extends JdbcDao {
 
         } catch (SQLException e) {
             System.err.println("Erreur SQL : " + e.getLocalizedMessage());
-
         }
     }
-
 }

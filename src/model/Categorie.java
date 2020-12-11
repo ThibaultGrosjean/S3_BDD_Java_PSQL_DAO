@@ -4,6 +4,7 @@ public class Categorie extends Entity {
 
     private int id;
     private String libelle;
+    private int chiffreAffaire;
 
     public Categorie() {
         this(0);
@@ -37,6 +38,14 @@ public class Categorie extends Entity {
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
+    }
+
+    public int getChiffreAffaire() {
+        return chiffreAffaire;
+    }
+
+    public void setChiffreAffaire(int chiffreAffaire) {
+        this.chiffreAffaire = chiffreAffaire;
     }
 
     @Override
