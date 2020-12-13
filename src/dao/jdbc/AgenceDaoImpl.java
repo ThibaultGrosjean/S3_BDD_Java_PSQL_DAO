@@ -78,9 +78,7 @@ public class AgenceDaoImpl extends JdbcDao {
         return chiffreAffaire;
     }
 
-    public Collection<Entity> findChiffreAffaireAnnee(int annee) throws DaoException {
-        Collection<Entity> agences = new ArrayList<>();
-
+    public void findChiffreAffaireAnnee(int annee) throws DaoException {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
@@ -93,46 +91,37 @@ public class AgenceDaoImpl extends JdbcDao {
                 " GROUP BY a.idAgence, v.idVille, v.nomville;");
 
             while (resultSet.next()) {
-                Agence agence = new Agence();
-                agence.setId(resultSet.getInt("idagence"));
-                agence.setVille((Ville) villeDao.findById(resultSet.getInt("idville")));
-                agence.setChiffreAffaire(resultSet.getInt("ChiffreAffaire"));
-                agences.add(agence);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(resultSet.getString("nomville"))
+                        .append(" | ").append(resultSet.getInt("idVille"))
+                        .append(" | ").append(resultSet.getInt("ChiffreAffaire"));
+                System.out.println(stringBuilder.toString());
             }
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-
-        return agences;
     }
 
-    public Collection<Entity> findNbVehicule(int nbAnnee, int nbKm) throws DaoException {
-        Collection<Entity> agences = new ArrayList<>();
-
+    public void findNbVehicule(int nbAnnee, int nbKm) throws DaoException {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
-            "SELECT vi.idville,COUNT(v.idagence) AS nbVehicule "+
-                "FROM VEHICULE AS v "+
-                "JOIN AGENCE AS a "+
-                "ON v.idagence = a.idagence "+
-                "JOIN VILLE AS vi "+
-                "ON a.idville = vi.idville "+
-                "WHERE EXTRACT(YEAR FROM v.dateMiseEnCirculation) < EXTRACT(YEAR FROM NOW()) - "+ nbAnnee +
-                " AND v.nbKilometres > "+ nbKm +
-                " GROUP BY v.idagence, vi.idville;");
+            "SELECT a.idagence,  COUNT(*) as nbVehicule FROM VEHICULE " +
+                    "join agence a on a.idagence = vehicule.idagence \n" +
+                    "WHERE EXTRACT(YEAR FROM dateMiseEnCirculation) < EXTRACT(YEAR FROM NOW()) - " + nbAnnee + " \n" +
+                    "  AND nbKilometres > "+ nbKm + " \n" +
+                    "group by a.idagence;"
+            );
 
             while (resultSet.next()) {
-                Agence agence = new Agence();
-                agence.setVille((Ville) villeDao.findById(resultSet.getInt("idville")));
-                agence.setNbVehicule(resultSet.getInt("nbVehicule"));
-                agences.add(agence);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(resultSet.getInt("idagence"))
+                        .append(" | ").append(resultSet.getInt("nbVehicule"));
+                System.out.println(stringBuilder.toString());
             }
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-
-        return agences;
     }
 
     @Override

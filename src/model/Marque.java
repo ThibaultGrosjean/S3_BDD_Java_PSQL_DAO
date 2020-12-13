@@ -4,7 +4,6 @@ public class Marque extends Entity {
 
     private int id;
     private String nom;
-    private int nbVehicule;
 
     public Marque() {
         this(0);
@@ -38,14 +37,6 @@ public class Marque extends Entity {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public int getNbVehicule() {
-        return nbVehicule;
-    }
-
-    public void setNbVehicule(int nbVehicule) {
-        this.nbVehicule = nbVehicule;
     }
 
     @Override

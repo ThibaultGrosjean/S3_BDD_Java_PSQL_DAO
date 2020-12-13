@@ -32,13 +32,8 @@ public class SimpleJdbcDaoTestMarque {
 
     public void testNbVehiculeMarque() {
         MarqueDaoImpl dao = new MarqueDaoImpl(connection);
-
         try {
-            Collection<Entity> marques = dao.findNbVehiculeMarque();
-            for (Entity entity : marques) {
-                Marque marque = (Marque) entity;
-                System.out.println(marque.getNom() + " | " + marque.getNbVehicule());
-            }
+            dao.findNbVehiculeMarque();
         } catch (DaoException e) {
             e.printStackTrace();
         }
@@ -111,7 +106,7 @@ public class SimpleJdbcDaoTestMarque {
         testDeleteMarque(marque);
         testfindAllMarques();
 
-        //TODO: Requete 7
+        //TODO: Requete 6
         System.out.println("\n***** Le nombre de véhicules pour chaque marque : ");
         testNbVehiculeMarque();
     }

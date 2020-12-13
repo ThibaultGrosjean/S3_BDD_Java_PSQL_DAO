@@ -50,9 +50,7 @@ public class MarqueDaoImpl extends JdbcDao {
         return marque;
     }
 
-    public Collection<Entity> findNbVehiculeMarque() throws DaoException {
-        Collection<model.Entity> marques = new ArrayList<>();
-
+    public void findNbVehiculeMarque() throws DaoException {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
@@ -62,15 +60,14 @@ public class MarqueDaoImpl extends JdbcDao {
                         "GROUP BY m.idMarque ;");
 
             while (resultSet.next()) {
-                Marque marque = new Marque();
-                marque.setNom(resultSet.getString("nommarque"));
-                marque.setNbVehicule(resultSet.getInt("nbVehiculeParMarque"));
-                marques.add(marque);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(resultSet.getString("nommarque"))
+                        .append(" | ").append(resultSet.getInt("nbVehiculeParMarque"));
+                System.out.println(stringBuilder.toString());
             }
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-        return marques;
     }
 
     @Override

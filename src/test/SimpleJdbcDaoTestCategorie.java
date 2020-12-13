@@ -30,13 +30,8 @@ public class SimpleJdbcDaoTestCategorie {
 
     public void testfindChiffreAffaireCategories() {
         CategorieDaoImpl dao = new CategorieDaoImpl(connection);
-
         try {
-            Collection<Entity> categories = dao.findChiffreAffaireCategorie();
-            for (Entity entity : categories) {
-                Categorie categorie = (Categorie) entity;
-                System.out.println(categorie.getId() + " | " + categorie.getLibelle() + " | " + categorie.getChiffreAffaire());
-            }
+            dao.findChiffreAffaireCategorie();
         } catch (DaoException e) {
             e.printStackTrace();
         }

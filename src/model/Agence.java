@@ -5,8 +5,6 @@ public class Agence extends Entity {
     private int id;
     private int nbEmployes;
     private Ville ville;
-    private int nbVehicule;
-    private int chiffreAffaire;
 
     public Agence() {
         this(0);
@@ -51,22 +49,6 @@ public class Agence extends Entity {
 
     public void setVille(Ville ville) {
         this.ville = ville;
-    }
-
-    public int getNbVehicule() {
-        return nbVehicule;
-    }
-
-    public void setNbVehicule(int nbVehicule) {
-        this.nbVehicule = nbVehicule;
-    }
-
-    public int getChiffreAffaire() {
-        return chiffreAffaire;
-    }
-
-    public void setChiffreAffaire(int chiffreAffaire) {
-        this.chiffreAffaire = chiffreAffaire;
     }
 
     @Override

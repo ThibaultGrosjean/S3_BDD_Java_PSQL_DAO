@@ -44,26 +44,16 @@ public class SimpleJdbcDaoTestAgence {
 
     public void testNbVehiculeByAnneeAndKm(int nbAnnee, int nbKm) {
         AgenceDaoImpl dao = new AgenceDaoImpl(connection);
-
         try {
-            Collection<Entity> agences = dao.findNbVehicule(nbAnnee, nbKm);
-            for (Entity entity : agences) {
-                Agence agence = (Agence) entity;
-                System.out.println(agence.getVille().getNom() +" | " +agence.getNbVehicule());
-            }
+            dao.findNbVehicule(nbAnnee, nbKm);
         } catch (DaoException e) {
             e.printStackTrace();
         }
     }
     public void testFindChiffreAffaireAnnee(int nbAnnee) {
         AgenceDaoImpl dao = new AgenceDaoImpl(connection);
-
         try {
-            Collection<Entity> agences = dao.findChiffreAffaireAnnee(nbAnnee);
-            for (Entity entity : agences) {
-                Agence agence = (Agence) entity;
-                System.out.println(agence.getVille().getNom() +" | " +agence.getChiffreAffaire());
-            }
+            dao.findChiffreAffaireAnnee(nbAnnee);
         } catch (DaoException e) {
             e.printStackTrace();
         }

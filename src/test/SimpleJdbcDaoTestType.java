@@ -41,13 +41,8 @@ public class SimpleJdbcDaoTestType {
 
     public void testChiffreAffaireTypes() {
         TypeDaoImpl dao = new TypeDaoImpl(connection);
-
         try {
-            Collection<Entity> types = dao.findChiffreAffaireType();
-            for (Entity entity : types) {
-                Type type = (Type) entity;
-                System.out.println(type.getId() + " | " + type.getLibelle() + " | " + type.getChiffreAffaire());
-            }
+            dao.findChiffreAffaireType();
         } catch (DaoException e) {
             e.printStackTrace();
         }

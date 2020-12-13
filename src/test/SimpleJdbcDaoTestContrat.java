@@ -115,7 +115,7 @@ public class SimpleJdbcDaoTestContrat {
         testDeleteContrat(contrat);
         testfindAllContrats();
 
-        //TODO: Requete 6
+        //TODO: Requete 7
         System.out.println("\n***** Client ayant realiser le plus de loc agence donnee et annee : ");
         testClientAyantRealPlusDeLoc(2020,1);
     }

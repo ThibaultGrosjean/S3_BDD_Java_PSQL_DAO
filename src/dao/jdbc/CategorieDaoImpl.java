@@ -51,9 +51,7 @@ public class CategorieDaoImpl extends JdbcDao {
         return categorie;
     }
 
-    public Collection<Entity> findChiffreAffaireCategorie() throws DaoException {
-        Collection<Entity> categories = new ArrayList<>();
-
+    public void findChiffreAffaireCategorie() throws DaoException {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
@@ -66,17 +64,15 @@ public class CategorieDaoImpl extends JdbcDao {
                 "GROUP BY c2.idcategorie, c2.libelleCategorie;");
 
             while (resultSet.next()) {
-                Categorie categorie = new Categorie();
-                categorie.setId(resultSet.getInt("idcategorie"));
-                categorie.setLibelle(resultSet.getString("libelleCategorie"));
-                categorie.setChiffreAffaire(resultSet.getInt("ChiffreAffaire"));
-                categories.add(categorie);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(resultSet.getInt("idcategorie"))
+                        .append(" | ").append(resultSet.getString("libelleCategorie"))
+                        .append(" | ").append(resultSet.getInt("ChiffreAffaire"));
+                System.out.println(stringBuilder.toString());
             }
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-
-        return categories;
     }
 
     @Override

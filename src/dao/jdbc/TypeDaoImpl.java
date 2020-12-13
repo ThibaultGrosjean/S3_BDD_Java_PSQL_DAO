@@ -50,9 +50,7 @@ public class TypeDaoImpl extends JdbcDao {
         return type;
     }
 
-    public Collection<Entity> findChiffreAffaireType() throws DaoException {
-        Collection<Entity> types = new ArrayList<>();
-
+    public void findChiffreAffaireType() throws DaoException {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
@@ -64,17 +62,15 @@ public class TypeDaoImpl extends JdbcDao {
                         "GROUP BY t.idType,t.libelleType;");
 
             while (resultSet.next()) {
-                Type type = new Type();
-                type.setId(resultSet.getInt("idType"));
-                type.setLibelle(resultSet.getString("libelletype"));
-                type.setChiffreAffaire(resultSet.getInt("ChiffreAffaire"));
-                types.add(type);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(resultSet.getInt("idType"))
+                        .append(" | ").append(resultSet.getString("libelletype"))
+                        .append(" | ").append(resultSet.getInt("ChiffreAffaire"));
+                System.out.println(stringBuilder.toString());
             }
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-
-        return types;
     }
 
     @Override

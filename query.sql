@@ -130,10 +130,12 @@ group by t.libelleType;
 
 /* 10 */
 
-SELECT COUNT(*)
+SELECT a.idagence,  COUNT(*) as nbVehicule
 FROM VEHICULE
+    join agence a on a.idagence = vehicule.idagence
 WHERE EXTRACT(YEAR FROM dateMiseEnCirculation) < EXTRACT(YEAR FROM NOW()) - 2
-  AND nbKilometres > 150000 ;
+  AND nbKilometres > 150000
+group by a.idagence;
 
 /* 11 */
 
