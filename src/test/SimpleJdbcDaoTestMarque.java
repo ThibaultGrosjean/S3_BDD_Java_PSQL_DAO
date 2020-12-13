@@ -111,7 +111,7 @@ public class SimpleJdbcDaoTestMarque {
         testDeleteMarque(marque);
         testfindAllMarques();
 
-        // 6.
+        //TODO: Requete 6
         System.out.println("\n***** Le nombre de véhicules pour chaque marque : ");
         testNbVehiculeMarque();
     }

@@ -113,7 +113,7 @@ public class SimpleJdbcDaoTestCategorie {
         testDeleteCategorie(categorie);
         testfindAllCategories();
 
-        // 8.
+        //TODO: Requete 8
         System.out.println("\n***** Le chiffre d’affaire par catégorie : ");
         testfindChiffreAffaireCategories();
     }

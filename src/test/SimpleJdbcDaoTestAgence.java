@@ -149,17 +149,17 @@ public class SimpleJdbcDaoTestAgence {
         testDeleteAgence(agence);
         testfindAllAgences();
 
-        //5.
+        //TODO: Requete 5
         System.out.println("\n***** Chiffre d'affaire de l'agence de lyon pour janvier 2020: ");
         testChiffreAffaire(getAgencesById(2), 1, 2020);
 
-        //10.
+        //TODO: Requete 10
         int nbAnnee = 2;
         int nbKm = 150000;
         System.out.println("\n***** Le nombre de véhicule(s) de plus de "+ nbAnnee +" ans et de plus de "+  nbKm +" km pour chacune des agences : ");
         testNbVehiculeByAnneeAndKm(nbAnnee, nbKm);
 
-        //11.
+        //TODO: Requete 11
         System.out.println("\n***** Le chiffre d’affaire pour une année donnée pour chacune des agences ");
         testFindChiffreAffaireAnnee(2020);
     }

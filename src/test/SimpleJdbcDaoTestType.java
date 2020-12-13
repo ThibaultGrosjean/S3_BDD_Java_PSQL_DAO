@@ -113,7 +113,7 @@ public class SimpleJdbcDaoTestType {
         testDeleteType(type);
         testfindAllTypes();
 
-        // 9.
+        //TODO: Requete 9
         System.out.println("\n***** Le chiffre d’affaire par type : ");
         testChiffreAffaireTypes();
     }
