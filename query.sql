@@ -98,6 +98,19 @@ FROM MARQUE AS m
               ON m.idMarque = v.idMarque
 GROUP BY m.idMarque ;
 
+/* 7 */
+
+SELECT cl.idclient , count(*) as nbLocation
+FROM contrat as c
+         JOIN client cl on c.idclient = cl.idclient
+WHERE EXTRACT(year FROM c.datederetour) = 2020 and c.idagencederetour = 1
+GROUP BY  cl.idclient
+HAVING count(*) >= ALL (SELECT count(*)
+                        FROM contrat
+                        WHERE contrat.idagencederetour = 3
+                        GROUP BY contrat.idclient)
+;
+
 /* 8 */
 
 select c2.libelleCategorie ,  SUM(f.montant) as ChiffreAffaire

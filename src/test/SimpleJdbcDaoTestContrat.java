@@ -1,6 +1,7 @@
 package test;
 
 import dao.Dao;
+import dao.jdbc.AgenceDaoImpl;
 import dao.jdbc.ContratDaoImpl;
 import dao.exception.DaoException;
 import dao.jdbc.FactureDaoImpl;
@@ -69,7 +70,6 @@ public class SimpleJdbcDaoTestContrat {
         } catch (DaoException e) {
             e.printStackTrace();
         }
-
     }
 
     public void test() throws DaoException {
@@ -114,8 +114,25 @@ public class SimpleJdbcDaoTestContrat {
         System.out.println("\n***** Suppression d'une contrat : ");
         testDeleteContrat(contrat);
         testfindAllContrats();
+
+        //TODO: Requete 6
+        System.out.println("\n***** Client ayant realiser le plus de loc agence donnee et annee : ");
+        testClientAyantRealPlusDeLoc(2020,1);
     }
 
+    public void testClientAyantRealPlusDeLoc(int annee , int agenceId) {
+        ContratDaoImpl dao = new ContratDaoImpl(connection);
+
+        try {
+            Collection<Entity> clients = dao.findMeilleurClientAnnee(annee,agenceId);
+            for (Entity entity : clients) {
+                Client client = (Client) entity;
+                System.out.println(client);
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) throws DaoException {
         new SimpleJdbcDaoTestContrat().test();

@@ -27,6 +27,7 @@ public class SimpleJdbcDaoTestLocation {
         factureDao = new FactureDaoImpl(connection);
         vehiculeDao = new VehiculeDaoImpl(connection);
 
+        //TODO : Requete 2
         System.out.println("\n***** Location d'une voiture : ");
         Contrat contrat = testLocationVoiture(1,1,3,7);
 
@@ -34,7 +35,7 @@ public class SimpleJdbcDaoTestLocation {
             System.in.read();
         } catch (IOException ignored) {}
 
-
+        //TODO : Requete 3
         System.out.println("\n***** Retour d'une voiture : ");
         testRetourVoiture(1,5700, contrat.getId()) ;
 
@@ -42,6 +43,7 @@ public class SimpleJdbcDaoTestLocation {
             System.in.read();
         } catch (IOException ignored) {}
 
+        //TODO : Requete 4
         System.out.println("\n***** Creation Facture : ");
         testFacture(contrat.getId()) ;
     }

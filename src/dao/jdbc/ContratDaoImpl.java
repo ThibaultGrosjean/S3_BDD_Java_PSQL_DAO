@@ -204,4 +204,42 @@ public class ContratDaoImpl extends JdbcDao {
         update(contrat);
     }
 
+
+    public Collection<Entity>  findMeilleurClientAnnee(int year , int agenceId) throws DaoException {
+        PreparedStatement stmt = null;
+        Collection<Entity> clients = new ArrayList<>();
+
+        String sqlReq = "SELECT cl.idclient , count(*) as nbLocation \n" +
+                "FROM contrat as c\n" +
+                "         JOIN client cl on c.idclient = cl.idclient\n" +
+                "WHERE EXTRACT(year FROM c.datederetour) = (?) and c.idagencederetour = (?)\n" +
+                "GROUP BY  cl.idclient \n" +
+                "HAVING count(*) >= ALL (SELECT count(*)\n" +
+                "                        FROM contrat\n" +
+                "                        WHERE contrat.idagencederetour = (?)\n" +
+                "                        GROUP BY contrat.idclient)\n" +
+                ";";
+
+
+
+        try {
+            stmt = connection.prepareStatement(sqlReq);
+            stmt.setInt(1, year);
+            stmt.setInt(2 , agenceId);
+            stmt.setInt(3 , agenceId);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                Client client =(Client) clientDao.findById(resultSet.getInt(1));
+                clients.add(client);
+                System.out.println(client.getNom() + " | " + resultSet.getInt(2) );
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+
+        return clients ;
+    }
 }
