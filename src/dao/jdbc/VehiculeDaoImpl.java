@@ -13,6 +13,7 @@ public class VehiculeDaoImpl extends JdbcDao {
     private CategorieDaoImpl categorieDao ;
     private TypeDaoImpl typeDao ;
     private AgenceDaoImpl agenceDao ;
+    private ContratDaoImpl contratDao ;
 
     public VehiculeDaoImpl(Connection connection) {
         super(connection);

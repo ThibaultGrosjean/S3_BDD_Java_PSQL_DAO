@@ -1,13 +1,12 @@
 package dao.jdbc;
+import dao.Dao;
 import dao.exception.DaoException;
-import model.Contrat;
-import model.Entity;
-import model.Facture;
-import model.Ville;
+import model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.TimeUnit;
 
 public class FactureDaoImpl extends JdbcDao {
 
@@ -124,6 +123,30 @@ public class FactureDaoImpl extends JdbcDao {
             System.err.println("Erreur SQL : " + e.getLocalizedMessage());
 
         }
+    }
+
+    public Facture etablitFacture(int contratId) throws DaoException {
+        FactureDaoImpl factureDao = new FactureDaoImpl(connection);
+        Contrat contrat = (Contrat) contratDao.findById(contratId);
+
+        java.util.Date dateDeRetrait = contrat.getDateDeRetrait() ;
+        java.util.Date dateDeRetour = contrat.getDateDeRetour() ;
+        int duree = (int) TimeUnit.DAYS.convert(Math.abs(dateDeRetour.getTime()-dateDeRetrait.getTime()), TimeUnit.MILLISECONDS);
+
+        Facture facture = new Facture(
+                0,
+                contrat.getVehicule().getPrixParJourDeLocation()*duree
+        );
+
+        facture.setContrat(contrat);
+
+        try {
+            factureDao.create(facture);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+
+        return facture;
     }
 
 }

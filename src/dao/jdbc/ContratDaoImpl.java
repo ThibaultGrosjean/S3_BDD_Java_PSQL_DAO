@@ -4,6 +4,7 @@ import model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 public class ContratDaoImpl extends JdbcDao {
@@ -73,10 +74,10 @@ public class ContratDaoImpl extends JdbcDao {
         Contrat contrat = (Contrat) entity;
 
         PreparedStatement stmt= null;
-        String sqlReq = "INSERT INTO CONTRAT(dateDeRetrait, dateDeRetour, kmRetrait, kmRetour, idClient, immatriculation, idAgenceDeRetour) VALUES ((?),(?), ?,?,?,?,?) ;";
+        String sqlReq = "INSERT INTO CONTRAT(dateDeRetrait, dateDeRetour, kmRetrait, kmRetour, idClient, immatriculation, idAgenceDeRetour) VALUES ((?),(?), ?,?,?,?,?);";
 
         try {
-            stmt = connection.prepareStatement(sqlReq);
+            stmt = connection.prepareStatement(sqlReq,Statement.RETURN_GENERATED_KEYS);
             stmt.setDate(1, (Date) contrat.getDateDeRetrait());
             stmt.setDate(2, (Date) contrat.getDateDeRetour());
             stmt.setInt(3, contrat.getKmRetrait());
@@ -86,7 +87,17 @@ public class ContratDaoImpl extends JdbcDao {
             stmt.setInt(7, contrat.getAgence().getId());
 
             int res = stmt.executeUpdate();
+
+
             if (res > 0) {
+                try (ResultSet resultSet = stmt.getGeneratedKeys()) {
+                    if (resultSet.next()) {
+                        contrat.setId((int) resultSet.getLong(1));
+                    }
+                    else {
+                        throw new SQLException("Creating user failed, no ID obtained.");
+                    }
+                }
                 System.out.println("Ligne insérée");
             }
 
@@ -142,8 +153,55 @@ public class ContratDaoImpl extends JdbcDao {
 
         } catch (SQLException e) {
             System.err.println("Erreur SQL : " + e.getLocalizedMessage());
-
         }
+    }
+
+    public Contrat locationVehicule(int clientId, int vehiculeId, int agenceId, int jour) throws DaoException {
+        Agence agence = (Agence) agenceDao.findById(agenceId) ;
+        Vehicule vehicule = (Vehicule) vehiculeDao.findById(vehiculeId);
+        Client client = (Client) clientDao.findById(clientId);
+
+        if (vehicule.getAgence().getId() == agence.getId()) {
+            throw new DaoException("L'agence de départ doit etre différente de celle de retour");
+        }
+
+        java.util.Date dateRetrait = new java.util.Date() ;
+        Calendar c = Calendar.getInstance() ;
+        c.setTime(dateRetrait);
+        c.add(Calendar.DATE, jour);
+        java.util.Date dateRetour  = c.getTime() ;
+
+        Contrat contrat = new Contrat(
+                0,
+                new Date(dateRetrait.getTime()),
+                new Date(dateRetour.getTime()),
+                vehicule.getNbKilometres(),
+                0,
+                client,
+                vehicule,
+                agence
+        );
+
+        vehicule.setEtat(false);
+
+        create(contrat);
+        vehiculeDao.update(vehicule);
+
+        return contrat ;
+    }
+
+    public void retourVehicule(int vehiculeId , int kmFait, int contratId) throws DaoException{
+        Vehicule vehicule = (Vehicule) vehiculeDao.findById(vehiculeId);
+        Contrat contrat = (Contrat) findById(contratId) ;
+        int kmFinal = vehicule.getNbKilometres()+kmFait;
+
+        vehicule.setNbKilometres(kmFinal);
+        vehicule.setEtat(true);
+
+        contrat.setKmRetour(kmFinal);
+
+        vehiculeDao.update(vehicule);
+        update(contrat);
     }
 
 }

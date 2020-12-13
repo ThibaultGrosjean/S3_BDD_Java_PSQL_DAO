@@ -3,12 +3,18 @@ package test;
 import dao.Dao;
 import dao.jdbc.ContratDaoImpl;
 import dao.exception.DaoException;
+import dao.jdbc.FactureDaoImpl;
+import dao.jdbc.VehiculeDaoImpl;
 import model.*;
 import sql.PostgresConnection;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.time.Instant;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class SimpleJdbcDaoTestContrat {
     private Connection connection;
@@ -46,7 +52,6 @@ public class SimpleJdbcDaoTestContrat {
         } catch (DaoException e) {
             e.printStackTrace();
         }
-
     }
 
     public void testEditContrat(Contrat contrat) {
