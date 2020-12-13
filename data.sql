@@ -41,15 +41,15 @@ INSERT INTO CLIENT VALUES(default, 'Thibault', '4 rue Lulli', 47602 , 2);
 INSERT INTO CLIENT VALUES(default, 'Pierre', '14 faubourg de la cathedrale', 25420 , 3);
 INSERT INTO CLIENT VALUES(default, 'Marie', '11 rue Massenet', 94500 , 4);
 
-INSERT INTO VEHICULE VALUES(default, '20-04-2001' , 'Neuf' , 4000 , 18 , 1 , 1 , 1 , 1,2);
-INSERT INTO VEHICULE VALUES(default, '14-11-2007', 'Neuf' , 5756 , 17 , 3 , 2 , 2 , 2,2);
-INSERT INTO VEHICULE VALUES(default, '19-09-1992', 'Peu abimée', 24615 , 11 , 3 , 2 , 2,3,3);
-INSERT INTO VEHICULE VALUES(default, '29-08-2005', 'Abimé', 190754 , 13 , 3 , 4 , 3 , 3,4);
-INSERT INTO VEHICULE VALUES(default, '18-04-2015', 'Abimé', 230754 , 15 , 2 , 3 , 3 , 2,4);
-INSERT INTO VEHICULE VALUES(default, '04-05-2000', 'Presque Neuf', 14654 , 14, 2, 5 , 4 , 4,3);
-INSERT INTO VEHICULE VALUES(default, '19-09-1992', 'Peu abimée', 200000 , 18 , 3 , 2 , 1,2,1);
-INSERT INTO VEHICULE VALUES(default, '29-08-2005', 'Abimé', 150001 , 14 , 3 , 4 , 3 , 1,1);
-INSERT INTO VEHICULE VALUES(default, '6-12-2020', 'Presque Neuf', 30000 , 16, 2, 5 , 4 , 1,1);
+INSERT INTO VEHICULE VALUES(default, '20-04-2001' , true , 4000 , 18 , 1 , 1 , 1 , 1,2);
+INSERT INTO VEHICULE VALUES(default, '14-11-2007', true , 5756 , 17 , 3 , 2 , 2 , 2,2);
+INSERT INTO VEHICULE VALUES(default, '19-09-1992', true, 24615 , 11 , 3 , 2 , 2,3,3);
+INSERT INTO VEHICULE VALUES(default, '29-08-2005', true, 190754 , 13 , 3 , 4 , 3 , 3,4);
+INSERT INTO VEHICULE VALUES(default, '18-04-2015', true, 230754 , 15 , 2 , 3 , 3 , 2,4);
+INSERT INTO VEHICULE VALUES(default, '04-05-2000', true, 14654 , 14, 2, 5 , 4 , 4,3);
+INSERT INTO VEHICULE VALUES(default, '19-09-1992', true, 200000 , 18 , 3 , 2 , 1,2,1);
+INSERT INTO VEHICULE VALUES(default, '29-08-2005', true, 150001 , 14 , 3 , 4 , 3 , 1,1);
+INSERT INTO VEHICULE VALUES(default, '6-12-2020', true, 30000 , 16, 2, 5 , 4 , 1,1);
 
 INSERT INTO CONTRAT VALUES(default,'06/01/2020','12/01/2020', 212.0,261.0,1,1,2);
 INSERT INTO CONTRAT VALUES(default,'06/01/2019','14/01/2020', 212.0,261.0,1,1,2);

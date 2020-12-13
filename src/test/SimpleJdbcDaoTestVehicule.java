@@ -81,7 +81,7 @@ public class SimpleJdbcDaoTestVehicule {
         Vehicule vehicule = new Vehicule(
                 9,
                 Date.valueOf("2002-04-24"),
-                "Abimée",
+                true,
                 240000,
                 150,
                 marque,

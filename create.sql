@@ -68,7 +68,7 @@ CREATE TABLE VEHICULE
 (
     immatriculation SERIAL,
     dateMiseEnCirculation DATE,
-    etat varchar(255),
+    etat BOOLEAN,
     nbKilometres INT,
     prixParJourDeLocation INT,
     idMarque INT,

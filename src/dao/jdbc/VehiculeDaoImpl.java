@@ -34,7 +34,7 @@ public class VehiculeDaoImpl extends JdbcDao {
                 Vehicule vehicule = new Vehicule();
                 vehicule.setImmatriculation(resultSet.getInt("immatriculation"));
                 vehicule.setDateMiseEnCirculation(resultSet.getDate("dateMiseEnCirculation"));
-                vehicule.setEtat(resultSet.getString("etat"));
+                vehicule.setEtat(resultSet.getBoolean("etat"));
                 vehicule.setNbKilometres(resultSet.getInt("nbKilometres"));
                 vehicule.setPrixParJourDeLocation(resultSet.getInt("prixParJourDeLocation"));
                 vehicule.setMarque((Marque) marqueDao.findById(resultSet.getInt("idmarque")));
@@ -61,7 +61,7 @@ public class VehiculeDaoImpl extends JdbcDao {
             while (resultSet.next()) {
                 vehicule.setImmatriculation(resultSet.getInt("immatriculation"));
                 vehicule.setDateMiseEnCirculation(resultSet.getDate("dateMiseEnCirculation"));
-                vehicule.setEtat(resultSet.getString("etat"));
+                vehicule.setEtat(resultSet.getBoolean("etat"));
                 vehicule.setNbKilometres(resultSet.getInt("nbKilometres"));
                 vehicule.setPrixParJourDeLocation(resultSet.getInt("prixParJourDeLocation"));
                 vehicule.setMarque((Marque) marqueDao.findById(resultSet.getInt("idmarque")));
@@ -86,7 +86,7 @@ public class VehiculeDaoImpl extends JdbcDao {
         try {
             stmt = connection.prepareStatement(sqlReq);
             stmt.setDate(1, (Date) vehicule.getDateMiseEnCirculation());
-            stmt.setString(2, vehicule.getEtat());
+            stmt.setBoolean(2, vehicule.getEtat());
             stmt.setInt(3, vehicule.getNbKilometres());
             stmt.setInt(4, vehicule.getPrixParJourDeLocation());
             stmt.setInt(5, vehicule.getMarque().getId());
@@ -115,7 +115,7 @@ public class VehiculeDaoImpl extends JdbcDao {
         try {
             stmt = connection.prepareStatement(sqlReq);
             stmt.setDate(1, (Date) vehicule.getDateMiseEnCirculation());
-            stmt.setString(2, vehicule.getEtat());
+            stmt.setBoolean(2, vehicule.getEtat());
             stmt.setInt(3, vehicule.getNbKilometres());
             stmt.setInt(4, vehicule.getPrixParJourDeLocation());
             stmt.setInt(5, vehicule.getMarque().getId());

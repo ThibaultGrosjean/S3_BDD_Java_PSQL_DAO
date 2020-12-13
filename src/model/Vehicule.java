@@ -6,7 +6,7 @@ public class Vehicule extends Entity {
 
     private int immatriculation;
     private Date dateMiseEnCirculation;
-    private String etat;
+    private Boolean etat;
     private int nbKilometres;
     private int prixParJourDeLocation;
     private Marque marque;
@@ -33,12 +33,12 @@ public class Vehicule extends Entity {
         this.dateMiseEnCirculation = dateMiseEnCirculation;
     }
 
-    public Vehicule(int immatriculation, Date dateMiseEnCirculation, String etat) {
+    public Vehicule(int immatriculation, Date dateMiseEnCirculation, Boolean etat) {
         this(immatriculation, dateMiseEnCirculation);
         this.etat = etat;
     }
 
-    public Vehicule(int immatriculation, Date dateMiseEnCirculation, String etat, int nbKilometres, int prixParJourDeLocation, Marque marque, Modele modele, Categorie categorie, Type type, Agence agence) {
+    public Vehicule(int immatriculation, Date dateMiseEnCirculation, Boolean etat, int nbKilometres, int prixParJourDeLocation, Marque marque, Modele modele, Categorie categorie, Type type, Agence agence) {
         this(immatriculation, dateMiseEnCirculation, etat);
         this.nbKilometres = nbKilometres;
         this.prixParJourDeLocation = prixParJourDeLocation;
@@ -65,11 +65,11 @@ public class Vehicule extends Entity {
         this.dateMiseEnCirculation = dateMiseEnCirculation;
     }
 
-    public String getEtat() {
+    public Boolean getEtat() {
         return etat;
     }
 
-    public void setEtat(String etat) {
+    public void setEtat(Boolean etat) {
         this.etat = etat;
     }
 
