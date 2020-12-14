@@ -71,7 +71,7 @@ public class SimpleJdbcDaoTestModele {
         dao = new ModeleDaoImpl(connection);
         testfindAllModeles();
 
-        Modele modele = new Modele(8,"MODELE", 1000);
+        Modele modele = new Modele(0,"MODELE", 1000);
 
         //create
         System.out.println("\n***** Création d'une modele : ");
@@ -82,15 +82,14 @@ public class SimpleJdbcDaoTestModele {
         testfindAllModeles();
 
         //find by id
-        System.out.println("\n***** Modele 5 : ");
-        testfindByIdModeles(5);
+        System.out.println("\n***** Modele id : ");
+        testfindByIdModeles(modele.getId());
 
 
         //edit
         System.out.println("\n***** Modification d'une modele : ");
-        testEditModele(
-                new Modele(1,"MODELEEDIT")
-        );
+        modele.setDenomination("MODELEEDIT");
+        testEditModele(modele);
         testfindAllModeles();
 
         //delete

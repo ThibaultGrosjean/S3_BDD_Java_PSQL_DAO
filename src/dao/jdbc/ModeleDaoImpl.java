@@ -60,12 +60,20 @@ public class ModeleDaoImpl extends JdbcDao {
         String sqlReq = "INSERT INTO MODELE(denomination, puissanceFiscale) VALUES ((?),(?)) ;";
 
         try {
-            stmt = connection.prepareStatement(sqlReq);
+            stmt = connection.prepareStatement(sqlReq,Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, modele.getDenomination());
             stmt.setInt(2,modele.getPuissanceFiscale());
 
             int res = stmt.executeUpdate();
             if (res > 0) {
+                try (ResultSet resultSet = stmt.getGeneratedKeys()) {
+                    if (resultSet.next()) {
+                        modele.setId((int) resultSet.getLong(1));
+                    }
+                    else {
+                        throw new SQLException("Creating failed, no ID obtained.");
+                    }
+                }
                 System.out.println("Ligne insérée");
             }
 
