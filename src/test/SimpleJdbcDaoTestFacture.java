@@ -90,7 +90,7 @@ public class SimpleJdbcDaoTestFacture {
         testfindAllFactures();
 
         //find by id
-        System.out.println("\n***** Facture 5 : ");
+        System.out.println("\n***** Facture id : ");
         testfindByIdFactures(facture.getId());
 
 

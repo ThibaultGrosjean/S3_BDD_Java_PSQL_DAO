@@ -92,17 +92,17 @@ public class SimpleJdbcDaoTestMarque {
         testfindAllMarques();
 
         //find by id
-        System.out.println("\n***** Marque wolsvagen : ");
-        testfindByIdMarques(6);
+        System.out.println("\n***** Marque id : ");
+        testfindByIdMarques(marque.getId());
 
         //edit
         System.out.println("\n***** Modification d'une marque : ");
-        testEditMarque(new Marque(1,"VROUUUM"));
+        marque.setNom("MARQUEDIT");
+        testEditMarque(marque);
         testfindAllMarques();
 
         //delete
         System.out.println("\n***** Suppression d'une marque : ");
-        marque.setId(6);
         testDeleteMarque(marque);
         testfindAllMarques();
 
