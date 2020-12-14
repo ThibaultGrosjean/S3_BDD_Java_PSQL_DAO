@@ -132,12 +132,20 @@ public class AgenceDaoImpl extends JdbcDao {
         String sqlReq = "INSERT INTO agence(nbemployes, idville) VALUES (?,?)";
 
         try {
-            stmt = connection.prepareStatement(sqlReq);
+            stmt = connection.prepareStatement(sqlReq,Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, agence.getNbEmployes());
             stmt.setInt(2, agence.getVille().getId());
 
             int res = stmt.executeUpdate();
             if (res > 0) {
+                try (ResultSet resultSet = stmt.getGeneratedKeys()) {
+                    if (resultSet.next()) {
+                        agence.setId((int) resultSet.getLong(1));
+                    }
+                    else {
+                        throw new SQLException("Creating user failed, no ID obtained.");
+                    }
+                }
                 System.out.println("Ligne insérée");
             }
 

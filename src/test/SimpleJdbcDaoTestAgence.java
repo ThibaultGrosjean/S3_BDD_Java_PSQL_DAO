@@ -111,7 +111,7 @@ public class SimpleJdbcDaoTestAgence {
         dao = new AgenceDaoImpl(connection);
         testfindAllAgences();
 
-        Agence agence = new Agence(5,600000);
+        Agence agence = new Agence(0,600000);
         agence.setVille(new Ville(1));
 
         //create
@@ -124,18 +124,17 @@ public class SimpleJdbcDaoTestAgence {
 
         //find by id
         System.out.println("\n***** Agence 5 : ");
-        testfindByIdAgences(5);
+        testfindByIdAgences(agence.getId());
 
 
         //edit
         System.out.println("\n***** Modification d'une agence : ");
-        agence.setNbEmployes(0101010);
+        agence.setNbEmployes(1000);
         testEditAgence(agence);
         testfindAllAgences();
 
         //delete
         System.out.println("\n***** Suppression d'une agence : ");
-        agence.setId(5);
         testDeleteAgence(agence);
         testfindAllAgences();
 
