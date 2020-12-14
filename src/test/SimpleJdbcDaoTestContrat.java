@@ -102,7 +102,7 @@ public class SimpleJdbcDaoTestContrat {
 
         //find by id
         System.out.println("\n***** Contrat 5 : ");
-        testfindByIdContrats(5);
+        testfindByIdContrats(contrat.getId());
 
         //edit
         System.out.println("\n***** Modification d'une contrat : ");

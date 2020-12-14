@@ -91,7 +91,7 @@ public class SimpleJdbcDaoTestFacture {
 
         //find by id
         System.out.println("\n***** Facture 5 : ");
-        testfindByIdFactures(5);
+        testfindByIdFactures(facture.getId());
 
 
         //edit

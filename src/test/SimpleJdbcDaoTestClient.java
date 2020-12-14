@@ -72,7 +72,7 @@ public class SimpleJdbcDaoTestClient {
         dao = new ClientDaoImpl(connection);
         testfindAllClients();
 
-        Client client = new Client(6,"CLIENT","7depihped", 25200);
+        Client client = new Client(0,"CLIENT","7depihped", 25200);
         client.setVille(new Ville(1));
 
         //create

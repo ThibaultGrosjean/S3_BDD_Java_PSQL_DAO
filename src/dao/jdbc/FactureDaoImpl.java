@@ -64,12 +64,20 @@ public class FactureDaoImpl extends JdbcDao {
         String sqlReq = "INSERT INTO facture(montant, idContrat) VALUES (?,?)";
 
         try {
-            stmt = connection.prepareStatement(sqlReq);
+            stmt = connection.prepareStatement(sqlReq,Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, facture.getMontant());
             stmt.setInt(2, facture.getContrat().getId());
 
             int res = stmt.executeUpdate();
             if (res > 0) {
+                try (ResultSet resultSet = stmt.getGeneratedKeys()) {
+                    if (resultSet.next()) {
+                        facture.setId((int) resultSet.getLong(1));
+                    }
+                    else {
+                        throw new SQLException("Creating failed, no ID obtained.");
+                    }
+                }
                 System.out.println("Ligne insérée");
             }
 
