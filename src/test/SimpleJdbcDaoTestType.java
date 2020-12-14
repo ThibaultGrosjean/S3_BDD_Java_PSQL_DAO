@@ -91,20 +91,18 @@ public class SimpleJdbcDaoTestType {
         testfindAllTypes();
 
         //find by id
-        System.out.println("\n***** Type 5 : ");
-        testfindByIdTypes(5);
+        System.out.println("\n***** Type id : ");
+        testfindByIdTypes(type.getId());
 
 
         //edit
         System.out.println("\n***** Modification d'une type : ");
-        testEditType(
-                new Type(1,"TYPEEDIT")
-        );
+        type.setLibelle("TYPEEDIT");
+        testEditType(type);
         testfindAllTypes();
 
         //delete
         System.out.println("\n***** Suppression d'une type : ");
-        type.setId(5);
         testDeleteType(type);
         testfindAllTypes();
 

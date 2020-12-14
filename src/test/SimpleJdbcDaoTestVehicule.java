@@ -100,8 +100,8 @@ public class SimpleJdbcDaoTestVehicule {
         testfindAllVehicules();
 
         //find by id
-        System.out.println("\n***** Vehicule 5 : ");
-        testfindByIdVehicules(5);
+        System.out.println("\n***** Vehicule id : ");
+        testfindByIdVehicules(vehicule.getImmatriculation());
 
         //edit
         System.out.println("\n***** Modification d'une vehicule : ");

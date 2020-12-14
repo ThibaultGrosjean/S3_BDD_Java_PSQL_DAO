@@ -83,20 +83,18 @@ public class SimpleJdbcDaoTestVille {
         testfindAllVilles();
 
         //find by id
-        System.out.println("\n***** Ville 5 : ");
-        testfindByIdVilles(5);
+        System.out.println("\n***** Ville id : ");
+        testfindByIdVilles(ville.getId());
 
 
         //edit
         System.out.println("\n***** Modification d'une ville : ");
-        testEditVille(
-                new Ville(1,"Dunkerque",999999)
-        );
+        ville.setNom("VILLEEDIT");
+        testEditVille(ville);
         testfindAllVilles();
 
         //delete
         System.out.println("\n***** Suppression d'une ville : ");
-        ville.setId(5);
         testDeleteVille(ville);
         testfindAllVilles();
     }

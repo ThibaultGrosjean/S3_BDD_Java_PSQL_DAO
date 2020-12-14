@@ -85,7 +85,7 @@ public class VehiculeDaoImpl extends JdbcDao {
         String sqlReq = "INSERT INTO VEHICULE(dateMiseEnCirculation, etat, nbKilometres, prixParJourDeLocation, idMarque, idModele, idCategorie, idType, idAgence) VALUES ((?),(?),?,?,?,?,?,?,?) ;";
 
         try {
-            stmt = connection.prepareStatement(sqlReq);
+            stmt = connection.prepareStatement(sqlReq,Statement.RETURN_GENERATED_KEYS);
             stmt.setDate(1, (Date) vehicule.getDateMiseEnCirculation());
             stmt.setBoolean(2, vehicule.getEtat());
             stmt.setInt(3, vehicule.getNbKilometres());
@@ -98,6 +98,14 @@ public class VehiculeDaoImpl extends JdbcDao {
 
             int res = stmt.executeUpdate();
             if (res > 0) {
+                try (ResultSet resultSet = stmt.getGeneratedKeys()) {
+                    if (resultSet.next()) {
+                        vehicule.setImmatriculation((int) resultSet.getLong(1));
+                    }
+                    else {
+                        throw new SQLException("Creating failed, no ID obtained.");
+                    }
+                }
                 System.out.println("Ligne insérée");
             }
 
