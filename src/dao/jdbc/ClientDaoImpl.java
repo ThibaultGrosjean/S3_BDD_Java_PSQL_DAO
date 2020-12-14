@@ -68,7 +68,7 @@ public class ClientDaoImpl extends JdbcDao {
         String sqlReq = "INSERT INTO CLIENT(nomClient, adresseClient, codePostalCLient, idVille) VALUES ((?),(?), (?),(?)) ;\n";
 
         try {
-            stmt = connection.prepareStatement(sqlReq);
+            stmt = connection.prepareStatement(sqlReq,Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, client.getNom());
             stmt.setString(2, client.getAdresse());
             stmt.setInt(3, client.getCodePostale());
@@ -76,6 +76,14 @@ public class ClientDaoImpl extends JdbcDao {
 
             int res = stmt.executeUpdate();
             if (res > 0) {
+                try (ResultSet resultSet = stmt.getGeneratedKeys()) {
+                    if (resultSet.next()) {
+                        client.setId((int) resultSet.getLong(1));
+                    }
+                    else {
+                        throw new SQLException("Creating failed, no ID obtained.");
+                    }
+                }
                 System.out.println("Ligne insérée");
             }
 

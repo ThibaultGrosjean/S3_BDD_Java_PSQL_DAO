@@ -84,8 +84,8 @@ public class SimpleJdbcDaoTestClient {
         testfindAllClients();
 
         //find by id
-        System.out.println("\n***** Client 5 : ");
-        testfindByIdClients(5);
+        System.out.println("\n***** Client find id : ");
+        testfindByIdClients(client.getId());
 
 
         //edit
