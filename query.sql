@@ -103,7 +103,7 @@ GROUP BY m.idMarque ;
 SELECT cl.idclient , count(*) as nbLocation
 FROM contrat as c
          JOIN client cl on c.idclient = cl.idclient
-WHERE EXTRACT(year FROM c.datederetour) = 2020 and c.idagencederetour = 1
+WHERE EXTRACT(year FROM c.datederetour) = 2020 and c.idagencederetour = 3
 GROUP BY  cl.idclient
 HAVING count(*) >= ALL (SELECT count(*)
                         FROM contrat
@@ -137,12 +137,17 @@ WHERE EXTRACT(YEAR FROM dateMiseEnCirculation) < EXTRACT(YEAR FROM NOW()) - 2
   AND nbKilometres > 150000
 group by a.idagence;
 
+SELECT idagence,  COUNT(*) as nbVehicule
+FROM VEHICULE
+WHERE EXTRACT(YEAR FROM dateMiseEnCirculation) < EXTRACT(YEAR FROM NOW()) - 2
+  AND nbKilometres > 150000
+group by idagence;
+
 /* 11 */
 
 SELECT a.idagence ,SUM(f.montant) AS ChiffreAffaire
 FROM AGENCE a
          JOIN CONTRAT C ON a.idAgence = C.idAgenceDeRetour
          JOIN FACTURE f ON C.idContrat = f.idcontrat
-         JOIN VILLE AS v ON a.idville = v.idville
 WHERE EXTRACT(YEAR FROM dateDeRetour) = '2020'
 GROUP BY a.idagence;
