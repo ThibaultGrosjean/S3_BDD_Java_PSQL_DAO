@@ -123,7 +123,7 @@ public class SimpleJdbcDaoTestAgence {
         testfindAllAgences();
 
         //find by id
-        System.out.println("\n***** Agence 5 : ");
+        System.out.println("\n***** Agence id : ");
         testfindByIdAgences(agence.getId());
 
 
