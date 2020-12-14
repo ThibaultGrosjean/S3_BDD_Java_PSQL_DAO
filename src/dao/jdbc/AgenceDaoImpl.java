@@ -143,7 +143,7 @@ public class AgenceDaoImpl extends JdbcDao {
                         agence.setId((int) resultSet.getLong(1));
                     }
                     else {
-                        throw new SQLException("Creating user failed, no ID obtained.");
+                        throw new SQLException("Creating failed, no ID obtained.");
                     }
                 }
                 System.out.println("Ligne insérée");

@@ -91,20 +91,18 @@ public class SimpleJdbcDaoTestCategorie {
         testfindAllCategories();
 
         //find by id
-        System.out.println("\n***** Categorie 5 : ");
-        testfindByIdCategories(5);
+        System.out.println("\n***** Categorie find id : ");
+        testfindByIdCategories(categorie.getId());
 
 
         //edit
         System.out.println("\n***** Modification d'une categorie : ");
-        testEditCategorie(
-                new Categorie(1,"CATEGORIEEDIT")
-        );
+        categorie.setLibelle("CATEGORIEEDIT");
+        testEditCategorie(categorie);
         testfindAllCategories();
 
         //delete
         System.out.println("\n***** Suppression d'une categorie : ");
-        categorie.setId(5);
         testDeleteCategorie(categorie);
         testfindAllCategories();
 
